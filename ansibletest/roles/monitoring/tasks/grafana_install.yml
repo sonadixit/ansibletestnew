@@ -1,0 +1,45 @@
+---
+- name: Install required packages for Grafana
+  package:
+    name: "{{ grafana_dependencies }}"
+    state: present
+  when: ansible_distribution in ['Debian', 'Ubuntu']
+
+- name: Add Grafana APT repository key
+  apt_key:
+    url: https://packages.grafana.com/gpg.key
+    state: present
+  when: ansible_pkg_mgr == 'apt' and ansible_os_family == 'Debian'
+
+- name: Add Grafana APT repository
+  apt_repository:
+    repo: deb https://packages.grafana.com/oss/deb stable main
+    state: present
+  when: ansible_pkg_mgr == 'apt' and ansible_os_family == 'Debian'
+
+- name: Add Grafana YUM repository
+  yum_repository:
+    name: grafana
+    description: Grafana repository
+    baseurl: https://packages.grafana.com/oss/rpm
+    gpgcheck: yes
+    gpgkey: https://packages.grafana.com/gpg.key
+    enabled: yes
+  when: ansible_pkg_mgr == 'yum' and ansible_os_family == 'RedHat'
+
+- name: Install Grafana
+  package:
+    name: grafana
+    state: present
+    update_cache: yes
+    notify: restart grafana
+    
+- name: Start Grafana service and enable it on boot
+  systemd:
+    name: grafana-server
+    state: started
+    enabled: yes
+- post_tasks:
+  - name: Display Grafana login information
+    debug:
+      msg: "Grafana is now accessible at http://{{ ansible_host }}:3000"

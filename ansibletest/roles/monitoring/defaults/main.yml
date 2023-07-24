@@ -1,0 +1,6 @@
+---
+# defaults file for ansibletask1-role
+grafana_version: "8.2.2"
+grafana_dependencies: "apt-transport-https"
+# Default directories for service configuration
+grafana_config_dir: "/etc/grafana"

@@ -1,0 +1,17 @@
+# Variables for Ubuntu
+grafana_ubuntu_packages:
+  - grafana={{ grafana_version }}
+  # Add other packages specific to Ubuntu
+
+
+# Variables for Fedora
+
+grafana_fedora_packages:
+  - grafana-{{ grafana_version }}
+  # Add other packages specific to Fedora
+
+# Variables for Amazon Linux
+
+grafana_amazon_packages:
+  - grafana-{{ grafana_version }}
+  # Add other packages specific to Amazon Linux

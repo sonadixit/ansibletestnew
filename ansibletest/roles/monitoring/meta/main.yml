@@ -1,0 +1,18 @@
+galaxy_info:
+ author: Your Name
+ description: Ansible role to deploy and configure Prometheus, Grafana, Alertmanager, Nginx, and Node Exporter.
+ license: MIT
+ min_ansible_version: 2.12
+ platforms:
+   - name: Ubuntu
+     versions:
+       - all
+   - name: Fedora
+     versions:
+       - all
+   - name: Amazon
+     versions:
+       - all
+ galaxy_tags:
+   - monitoring
+   - grafana

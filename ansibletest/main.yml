@@ -1,0 +1,26 @@
+---
+- hosts: localhost
+  become: true
+  roles:
+    - monitoring
+  tasks: 
+#    - name: Deploy Prometheus
+#      ansible.builtin.include_tasks:
+#        file: prometheus_install.yml
+#      tags:
+#        - prometheus_install
+    - name: Deploy grafana
+      ansible.builtin.include_tasks:
+        file: grafana_install.yml
+      tags:
+        - grafana_install  
+#    - name: Deploy alertmanager
+#      ansible.builtin.include_tasks:
+#        file: alertmanager_install.yml
+#      tags:
+#        - alertmanager_install
+#    - name: Deploy nginx-rv
+#      ansible.builtin.include_tasks:
+#        file: nginx-rv_install.yml
+#      tags:
+#        - nginx-rv_install         
