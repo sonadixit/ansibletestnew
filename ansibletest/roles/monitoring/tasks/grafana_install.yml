@@ -32,14 +32,9 @@
     name: grafana
     state: present
     update_cache: yes
-    notify: restart grafana
     
 - name: Start Grafana service and enable it on boot
   systemd:
     name: grafana-server
     state: started
     enabled: yes
-- post_tasks:
-  - name: Display Grafana login information
-    debug:
-      msg: "Grafana is now accessible at http://{{ ansible_host }}:3000"
