@@ -1,6 +1,5 @@
 ---
 - hosts: localhost
-  become: true
   roles:
     - monitoring
   tasks: 
@@ -14,11 +13,11 @@
         file: roles/monitoring/tasks/grafana_install.yml
       tags:
         - grafana_install  
-#    - name: Deploy alertmanager
-#      ansible.builtin.include_tasks:
-#        file: alertmanager_install.yml
-#      tags:
-#        - alertmanager_install
+    - name: Deploy alertmanager
+      ansible.builtin.include_tasks:
+        file: roles/monitoring/tasks/alertmanager_install.yml
+      tags:
+        - alertmanager_install
 #    - name: Deploy nginx-rv
 #      ansible.builtin.include_tasks:
 #        file: nginx-rv_install.yml
