@@ -11,7 +11,7 @@
 #        - prometheus_install
     - name: Deploy grafana
       ansible.builtin.include_tasks:
-        file: grafana_install.yml
+        file: roles/monitoring/tasks/grafana_install.yml
       tags:
         - grafana_install  
 #    - name: Deploy alertmanager
