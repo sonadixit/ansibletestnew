@@ -1,38 +1,16 @@
 ---
 - name: Install required packages for Alertmanager
   package:
-    name: "{{ alertmanager_dependencies }}"
-    state: present
-  when: ansible_distribution in ['Debian', 'Ubuntu', 'CentOS', 'RedHat']
-
-- name: Add Alertmanager APT repository key
-  apt_key:
-    url: https://packages.alertmanager.com/gpg.key
-    state: present
-  when: ansible_pkg_mgr == 'apt' and ansible_os_family == 'Debian'
-
-- name: Add Alertmanager APT repository
-  apt_repository:
-    repo: deb https://packages.alertmanager.com/oss/deb stable main
-    state: present
-  when: ansible_pkg_mgr == 'apt' and ansible_os_family == 'Debian'
-
-- name: Add Alertmanager YUM repository
-  yum_repository:
-    name: alertmanager
-    description: Alertmanager repository
-    baseurl: https://packages.alertmanager.com/oss/rpm
-    gpgcheck: yes
-    gpgkey: https://packages.alertmanager.com/gpg.key
-    enabled: yes
-  when: ansible_pkg_mgr == 'yum' and ansible_os_family == 'RedHat'
-
-- name: Install Alertmanager
-  package:
     name: alertmanager
     state: present
     update_cache: yes
-
+  when: ansible_pkg_mgr == 'apt' and ansible_distribution in ['Debian', 'Ubuntu'] 
+- name: Install required packages for Alertmanager
+  package:
+    name: prometheus-alertmanager
+    state: present
+    update_cache: yes
+  when: ansible_pkg_mgr == 'yum' and ansible_distribution in ['Amazon', 'CentOS', 'RedHat', 'Fedora']
 - name: Create Alertmanager configuration directory
   file:
     path: /etc/alertmanager/
@@ -40,7 +18,7 @@
 
 - name: Copy Alertmanager configuration file
   copy:
-    src: roles/monitoring/files/alertmanager.yml
+    src: alertmanager.yml
     dest: /etc/alertmanager/alertmanager.yml
 
 - name: Start Alertmanager service and enable it on boot
@@ -48,9 +26,3 @@
     name: alertmanager
     state: started
     enabled: yes
-- name: Copy systemd service for alertmanager
-  copy:
-  src: ../files/alertmanager.service
-  dest: /etc/systemd/system/    
-    
-    
