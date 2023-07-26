@@ -1,0 +1,19 @@
+global:
+  # How often to evaluate new alerts (default: 30s)
+  evaluation_interval: 1m
+
+route:
+  receiver: 'default-receiver'
+
+  group_by: ['alertname', 'job']
+  group_wait: 30s
+  repeat_interval: 4h
+
+receivers:
+  - name: 'default-receiver'
+    email_configs:
+      - to: 'sd@example.com'
+        from: 'alertmanager@example.com'
+        smarthost: 'smtp.example.com:587'
+        auth_username: 'admin'
+        auth_password: 'admin'
