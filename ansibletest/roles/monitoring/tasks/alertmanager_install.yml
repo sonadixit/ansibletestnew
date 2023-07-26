@@ -48,4 +48,9 @@
     name: alertmanager
     state: started
     enabled: yes
+- name: Copy systemd service for alertmanager
+  copy:
+  src: ../files/alertmanager.service
+  dest: /etc/systemd/system/    
+    
     
