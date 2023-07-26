@@ -15,3 +15,15 @@ grafana_fedora_packages:
 grafana_amazon_packages:
   - grafana-{{ grafana_version }}
   # Add other packages specific to Amazon Linux
+grafana_version: "8.2.2"
+grafana_dependencies: "apt-transport-https"
+grafana_download_url: "https://dl.grafana.com/enterprise/release/grafana-enterprise_{{ grafana_version }}_amd64.deb"
+
+grafana_config_dir: "/etc/grafana"
+alertmanager_version: "0.22.2" 
+alertmanager_url: "https://github.com/prometheus/alertmanager/releases/download/v{{ alertmanager_version }}/alertmanager-{{ alertmanager_version }}.linux-amd64.tar.gz"
+alertmanager_install_dir: "/usr/local/bin"
+alertmanager_config_src: "roles/monitoring/files/alertmanager.yml"  
+alertmanager_config_dest: "/etc/alertmanager/alertmanager.yml"
+alertmanager_service_src: "roles/monitoring/files/alertmanager.service"  
+alertmanager_service_dest: "/etc/systemd/system/alertmanager.service"
