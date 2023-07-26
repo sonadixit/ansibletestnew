@@ -3,7 +3,7 @@ Description=Alertmanager for prometheus
 [Service]
 Restart=always
 User=prometheus
-ExecStart=/opt/alertmanager/alertmanager --config.file=roles/monitoring/templates/alertmanager.yml --storage.path=/opt/al
+ExecStart=/opt/alertmanager/alertmanager --config.file=/opt/alertmanager/alertmanager.yml --storage.path=/opt/al
 ExecReload=/bin/kill -HUP $MAINPID
 TimeoutStopSec=20s
 SendSIGKILL=no
